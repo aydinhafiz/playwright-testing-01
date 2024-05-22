@@ -70,10 +70,11 @@ test.describe("success login with 3 accounts", () => {
     await loginDetails.nth(3).getByRole("button", { name: "Anmelden" }).click(); // login button
   });
 
+  
   test("login as B2T", async ({ page }) => {
     await page.locator(".inner .selection-buttons").getByText("Ja").click();
 
-    
+
 
     await page
       .getByPlaceholder("muster@muster.com")
