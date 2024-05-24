@@ -112,9 +112,9 @@ test.describe("success login with 3 accounts", () => {
     await expect(yesButton).toHaveText("Ja"); // validate it
 
     await page.waitForNavigation();
-    expect(page.url()).toBe("https://www.rameder.de/haendler.html");
-
     await yesButton.click(); // click the button
+
+    await expect(page.url()).toBe("https://www.rameder.de/haendler.html");
 
     await page
       .getByPlaceholder("muster@muster.com")
@@ -217,7 +217,10 @@ test.describe("Failed login with 3 accounts", () => {
       .getByText("Ja");
     await expect(yesButton).toHaveText("Ja"); // validate it
 
+    await page.waitForNavigation();
     await yesButton.click(); // click the button
+
+    await expect(page.url()).toBe("https://www.rameder.de/haendler.html");
 
     const emailInput = await page.getByPlaceholder("muster@muster.com"); // get email input
     const passwordInputPlaemailVlaue = emailInput.getAttribute("placeholder"); // get attribute
