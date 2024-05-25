@@ -169,6 +169,15 @@ test.describe("Failed login with 3 accounts", () => {
       .getByRole("button", { name: "Anmelden" }); // login button
     expect(loginButton).toHaveText("Anmelden"); // validate it
     await loginButton.click(); // click the button
+
+    const failedPassword = await page //message falsch
+      .locator("form .uk-alert-danger")
+      .locator("p strong")
+      .textContent();
+
+    await expect(failedPassword).toContain(
+      "Falsche E-Mail-Adresse oder falsches Passwort!" // validate it
+    );
   });
 
   test("failed login as B2B", async ({ page }) => {
@@ -209,6 +218,15 @@ test.describe("Failed login with 3 accounts", () => {
       .getByRole("button", { name: "Anmelden" }); // login button
     expect(loginButton).toHaveText("Anmelden"); // validate it
     await loginButton.click(); // click the button
+
+    const failedPassword = await page //message falsch
+      .locator("form .uk-alert-danger")
+      .locator("p strong")
+      .textContent();
+
+    await expect(failedPassword).toContain(
+      "Falsche E-Mail-Adresse oder falsches Passwort!" // validate it
+    );
   });
 
   test("failed login as B2T", async ({ page }) => {
@@ -242,5 +260,14 @@ test.describe("Failed login with 3 accounts", () => {
     });
     expect(nowLoginButton).toHaveText("Jetzt anmelden"); // validate it
     await nowLoginButton.click(); // login
+
+    const failedPassword = await page //message falsch
+      .locator("form .uk-alert-danger")
+      .locator("p strong")
+      .textContent();
+
+    await expect(failedPassword).toContain(
+      "Falsche E-Mail-Adresse oder falsches Passwort!" // validate it
+    );
   });
 });
