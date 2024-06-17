@@ -1,20 +1,26 @@
 import { expect, test } from "@playwright/test";
+require("dotenv").config();
+
+const userB2C = process.env.USER_B2C;
+const userB2B = process.env.USER_B2B;
+const userB2T = process.env.USER_B2T;
+const userPassword = process.env.USER_PASSWORD;
 
 const data = [
   {
     name: "B2C",
-    email: "test-b2c-de@test.rameder.de",
-    password: "test1234",
+    email: userB2C,
+    password: userPassword,
   },
   {
     name: "B2B",
-    email: "test-b2c-de@test.rameder.de",
-    password: "test1234",
+    email: userB2B,
+    password: userPassword,
   },
   {
     name: "B2T",
-    email: "test-b2t-de@test.rameder.de",
-    password: "test1234",
+    email: userB2T,
+    password: userPassword,
   },
 ];
 
@@ -50,7 +56,7 @@ test.describe("success login with 3 accounts", () => {
       .locator("#email");
 
     await emailInput.fill(`${data[1].email}`); // write email
-    expect(emailInput).toHaveValue(`${data[0].email}`); // validate it
+    expect(emailInput).toHaveValue(`${data[1].email}`); // validate it
 
     const passwordInput = await loginDetails.nth(1).getByText("Passwort");
     // password input
@@ -111,7 +117,6 @@ test.describe("success login with 3 accounts", () => {
       .getByText("Ja");
     await expect(yesButton).toHaveText("Ja"); // validate it
 
-    await page.waitForNavigation();
     await yesButton.click(); // click the button
 
     await expect(page.url()).toBe("https://www.rameder.de/haendler.html");
@@ -268,7 +273,6 @@ test.describe("Failed login with 3 accounts", () => {
 
     await expect(failedPassword).toContain(
       "Falsche E-Mail-Adresse oder falsches Passwort!" // validate it
-      
     );
   });
 });
